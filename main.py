@@ -282,18 +282,14 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
     # Bishops # TODO: fix
     if movementStyle == "bishop":
         index = -9
-        for i in range(-8, 8):
+        for i in range(0, 16):
             index += 1
-            if tox == currentx + index:
-                if toy == currenty + index:
-                    pass # TODO: Move piece
-                elif index >= 9:
-                    return False
-            elif index >= 9:
-                return False
+            if tox + index == currentx and toy + index == currenty:
+                return True # TODO: Move piece
+        return False
 
     # Rooks
-    if movementStyle == "rook":
+    elif movementStyle == "rook":
         if currentx == tox:
             pass #TODO: Move piece
         elif currenty == toy:
@@ -302,7 +298,7 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
             return False
     
     # Queen
-    if movementStyle == "queen":
+    elif movementStyle == "queen":
         # Stolen from Rook
         if currentx == tox:
             pass #TODO: Move piece
@@ -313,16 +309,17 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
         index = -9
         for i in range(-8, 8):
             index += 1
-            if tox == currentx + index:
-                if toy == currenty + index:
+            if tox + index == currentx:
+                if toy + index == currenty:
                     pass # TODO: Move piece
                 elif index >= 9:
                     return False
             elif index >= 9:
                 return False
+        return False
 
     # King
-    if movementStyle == "king":
+    elif movementStyle == "king":
         if tox - 1 == currentx or tox + 1 == currentx:
             pass #TODO: move piece
         if toy - 1 == currenty or toy + 1 == currenty:
@@ -330,7 +327,7 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
         else:
             return False
 
-    if movementStyle == "w_pawn" or movementStyle == "b_pawn":
+    elif movementStyle == "w_pawn" or movementStyle == "b_pawn":
         forward = "You broke sum shit"
         if movementStyle == "w_pawn":
             forward = 1
@@ -349,52 +346,68 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
         else:
             return False
 
-    if movementStyle == "knight":
-        pass
+    elif movementStyle == "knight":
+        move = False
+        if tox - 2 == currentx and toy - 1 == currenty:
+            move = True
+        if tox - 2 == currentx and toy + 1 == currenty:
+            move = True
+        if tox + 2 == currentx and toy - 1 == currenty:
+            move = True
+        if tox + 2 == currentx and toy + 1 == currenty:
+            move = True
+        if tox - 1 == currentx and toy - 2 == currenty:
+            move = True
+        if tox + 1 == currentx and toy - 2 == currenty:
+            move = True
+        if tox - 1 == currentx and toy + 2 == currenty:
+            move = True
+        if tox + 1 == currentx and toy + 2 == currenty:
+            move = True
+        if move == True:
+            pass # TODO: Move piece
+        else:
+            return False
     
-
 def getPiece(x: int, y: int): # Use squares
-    if True == True:
-        b_bishopp1 = ("b_bishop1", b_bishop1.xpos, b_bishop1.ypos, "bishop")
-        b_bishopp2 = ("b_bishop2", b_bishop2.xpos, b_bishop2.ypos, "bishop")
-        b_rookk1 = ("b_rook1", b_rook1.xpos, b_rook1.ypos, "rook")
-        b_rookk2 = ("b_rook2", b_rook2.xpos, b_rook2.ypos, "rook")
-        b_knightt1 = ("b_knight1", b_knight1.xpos, b_knight1.ypos, "knight")
-        b_knightt2 = ("b_knight1", b_knight1.xpos, b_knight2.ypos, "knight")
-        b_queenn1 = ("b_queen1", b_queen1.xpos, b_queen1.ypos, "queen")
-        b_kingg1 = ("b_king1", b_king1.xpos, b_king1.ypos, "king")
-        w_bishopp1 = ("w_bishop1", w_bishop1.xpos, w_bishop1.ypos, "bishop")
-        w_bishopp2 = ("w_bishop2", w_bishop2.xpos, w_bishop2.ypos, "bishop")
-        w_rookk1 = ("w_rook1", w_rook1.xpos, w_rook1.ypos, "rook")
-        w_rookk2 = ("w_rook2", w_rook2.xpos, w_rook2.ypos, "rook")
-        w_knightt1 = ("w_knight1", w_knight1.xpos, w_knight1.ypos, "knight")
-        w_knightt2 = ("w_knight1", w_knight1.xpos, w_knight2.ypos, "knight")
-        w_queenn1 = ("w_queen1", w_queen1.xpos, w_queen1.ypos, "queen")
-        w_kingg1 = ("w_king1", w_king1.xpos, w_king1.ypos, "king")
-        # pawns
-        b_pawnn1 = ("b_pawn1", b_pawn1.xpos, b_pawn1.ypos, "b_pawn")
-        b_pawnn2 = ("b_pawn2", b_pawn2.xpos, b_pawn2.ypos, "b_pawn")
-        b_pawnn3 = ("b_pawn3", b_pawn3.xpos, b_pawn3.ypos, "b_pawn")
-        b_pawnn4 = ("b_pawn4", b_pawn4.xpos, b_pawn4.ypos, "b_pawn")
-        b_pawnn5 = ("b_pawn5", b_pawn5.xpos, b_pawn5.ypos, "b_pawn")
-        b_pawnn6 = ("b_pawn6", b_pawn6.xpos, b_pawn6.ypos, "b_pawn")
-        b_pawnn7 = ("b_pawn7", b_pawn7.xpos, b_pawn7.ypos, "b_pawn")
-        b_pawnn8 = ("b_pawn8", b_pawn8.xpos, b_pawn8.ypos, "b_pawn")
-        w_pawnn1 = ("w_pawn1", w_pawn1.xpos, w_pawn1.ypos, "w_pawn")
-        w_pawnn2 = ("w_pawn2", w_pawn2.xpos, w_pawn2.ypos, "w_pawn")
-        w_pawnn3 = ("w_pawn3", w_pawn3.xpos, w_pawn3.ypos, "w_pawn")
-        w_pawnn4 = ("w_pawn4", w_pawn4.xpos, w_pawn4.ypos, "w_pawn")
-        w_pawnn5 = ("w_pawn5", w_pawn5.xpos, w_pawn5.ypos, "w_pawn")
-        w_pawnn6 = ("w_pawn6", w_pawn6.xpos, w_pawn6.ypos, "w_pawn")
-        w_pawnn7 = ("w_pawn7", w_pawn7.xpos, w_pawn7.ypos, "w_pawn")
-        w_pawnn8 = ("w_pawn8", w_pawn8.xpos, w_pawn8.ypos, "w_pawn")
+    b_bishopp1 = ("b_bishop1", b_bishop1.xpos, b_bishop1.ypos, "bishop")
+    b_bishopp2 = ("b_bishop2", b_bishop2.xpos, b_bishop2.ypos, "bishop")
+    b_rookk1 = ("b_rook1", b_rook1.xpos, b_rook1.ypos, "rook")
+    b_rookk2 = ("b_rook2", b_rook2.xpos, b_rook2.ypos, "rook")
+    b_knightt1 = ("b_knight1", b_knight1.xpos, b_knight1.ypos, "knight")
+    b_knightt2 = ("b_knight2", b_knight2.xpos, b_knight2.ypos, "knight")
+    b_queenn1 = ("b_queen1", b_queen1.xpos, b_queen1.ypos, "queen")
+    b_kingg1 = ("b_king1", b_king1.xpos, b_king1.ypos, "king")
+    w_bishopp1 = ("w_bishop1", w_bishop1.xpos, w_bishop1.ypos, "bishop")
+    w_bishopp2 = ("w_bishop2", w_bishop2.xpos, w_bishop2.ypos, "bishop")
+    w_rookk1 = ("w_rook1", w_rook1.xpos, w_rook1.ypos, "rook")
+    w_rookk2 = ("w_rook2", w_rook2.xpos, w_rook2.ypos, "rook")
+    w_knightt1 = ("w_knight1", w_knight1.xpos, w_knight1.ypos, "knight")
+    w_knightt2 = ("w_knight2", w_knight2.xpos, w_knight2.ypos, "knight")
+    w_queenn1 = ("w_queen1", w_queen1.xpos, w_queen1.ypos, "queen")
+    w_kingg1 = ("w_king1", w_king1.xpos, w_king1.ypos, "king")
+    # pawns
+    b_pawnn1 = ("b_pawn1", b_pawn1.xpos, b_pawn1.ypos, "b_pawn")
+    b_pawnn2 = ("b_pawn2", b_pawn2.xpos, b_pawn2.ypos, "b_pawn")
+    b_pawnn3 = ("b_pawn3", b_pawn3.xpos, b_pawn3.ypos, "b_pawn")
+    b_pawnn4 = ("b_pawn4", b_pawn4.xpos, b_pawn4.ypos, "b_pawn")
+    b_pawnn5 = ("b_pawn5", b_pawn5.xpos, b_pawn5.ypos, "b_pawn")
+    b_pawnn6 = ("b_pawn6", b_pawn6.xpos, b_pawn6.ypos, "b_pawn")
+    b_pawnn7 = ("b_pawn7", b_pawn7.xpos, b_pawn7.ypos, "b_pawn")
+    b_pawnn8 = ("b_pawn8", b_pawn8.xpos, b_pawn8.ypos, "b_pawn")
+    w_pawnn1 = ("w_pawn1", w_pawn1.xpos, w_pawn1.ypos, "w_pawn")
+    w_pawnn2 = ("w_pawn2", w_pawn2.xpos, w_pawn2.ypos, "w_pawn")
+    w_pawnn3 = ("w_pawn3", w_pawn3.xpos, w_pawn3.ypos, "w_pawn")
+    w_pawnn4 = ("w_pawn4", w_pawn4.xpos, w_pawn4.ypos, "w_pawn")
+    w_pawnn5 = ("w_pawn5", w_pawn5.xpos, w_pawn5.ypos, "w_pawn")
+    w_pawnn6 = ("w_pawn6", w_pawn6.xpos, w_pawn6.ypos, "w_pawn")
+    w_pawnn7 = ("w_pawn7", w_pawn7.xpos, w_pawn7.ypos, "w_pawn")
+    w_pawnn8 = ("w_pawn8", w_pawn8.xpos, w_pawn8.ypos, "w_pawn")
     piecelist = [b_bishopp1, b_bishopp2, b_rookk1, b_rookk2, b_knightt1, b_knightt2, b_queenn1, b_kingg1, w_bishopp1, w_bishopp2, w_rookk1, w_rookk2, w_knightt1, w_knightt2, w_queenn1, w_kingg1, b_pawnn1, b_pawnn2, b_pawnn3, b_pawnn3, b_pawnn4, b_pawnn5, b_pawnn6, b_pawnn7, b_pawnn7, b_pawnn8, w_pawnn1, w_pawnn2, w_pawnn3, w_pawnn4, w_pawnn5, w_pawnn6, w_pawnn7, w_pawnn8]
     for i in piecelist:
         if i[1] == x and i[2] == y:
             return (i[0], i[3]) # [0] is name and [3] is movement-style
     return None
-
-
 
 ######################## Draw screen one time 
 pygame.display.flip()
