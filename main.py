@@ -279,13 +279,22 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
     if to is not None:
         pass # TODO: Remove piece from board
 
-    # Bishops # TODO: fix
+    # Bishops
     if movementStyle == "bishop":
+        move = False
         index = -9
         for i in range(0, 16):
             index += 1
             if tox + index == currentx and toy + index == currenty:
-                return True # TODO: Move piece
+                move = True
+            if tox + index == currentx and toy - index == currenty:
+                move = True
+            if tox - index == currentx and toy + index == currenty:
+                move = True
+            if tox - index == currentx and toy - index == currenty:
+                move = True
+            if move == True:
+                return True #TODO: Move piece
         return False
 
     # Rooks
@@ -301,21 +310,25 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
     elif movementStyle == "queen":
         # Stolen from Rook
         if currentx == tox:
-            pass #TODO: Move piece
+            return True #TODO: Move piece
         elif currenty == toy:
-            pass #TODO: Move piece
+            return True #TODO: Move piece
 
         # Stolen from Bishop TODO: fix
+        move = False
         index = -9
-        for i in range(-8, 8):
+        for i in range(0, 16):
             index += 1
-            if tox + index == currentx:
-                if toy + index == currenty:
-                    pass # TODO: Move piece
-                elif index >= 9:
-                    return False
-            elif index >= 9:
-                return False
+            if tox + index == currentx and toy + index == currenty:
+                move = True
+            if tox + index == currentx and toy - index == currenty:
+                move = True
+            if tox - index == currentx and toy + index == currenty:
+                move = True
+            if tox - index == currentx and toy - index == currenty:
+                move = True
+            if move == True:
+                return True #TODO: Move piece
         return False
 
     # King
