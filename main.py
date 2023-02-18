@@ -265,7 +265,7 @@ def draw():
 def reset():
     pass
 
-def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square to another
+def canMove(piece: str, current: tuple, to: tuple, remove: bool=True): # Moves a piece from one square to another
     tox = to[0]
     toy = to[1]
     currentx = current[0]
@@ -276,7 +276,10 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
     movementStyle = current[1]
     piece = current[0]
 
-    if to is not None:
+    # Checks for own piece
+    
+    # Checks for other pieces
+    if to is not None and remove == True:
         pass # TODO: Remove piece from board
 
     # Bishops
@@ -294,15 +297,15 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
             if tox - index == currentx and toy - index == currenty:
                 move = True
             if move == True:
-                return True #TODO: Move piece
+                return True
         return False
 
     # Rooks
     elif movementStyle == "rook":
         if currentx == tox:
-            pass #TODO: Move piece
+            return True
         elif currenty == toy:
-            pass #TODO: Move piece
+            return True
         else: 
             return False
     
@@ -314,7 +317,7 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
         elif currenty == toy:
             return True #TODO: Move piece
 
-        # Stolen from Bishop TODO: fix
+        # Stolen from Bishop
         move = False
         index = -9
         for i in range(0, 16):
@@ -334,9 +337,9 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
     # King
     elif movementStyle == "king":
         if tox - 1 == currentx or tox + 1 == currentx:
-            pass #TODO: move piece
+            return True #TODO: move piece
         if toy - 1 == currenty or toy + 1 == currenty:
-            pass #TODO: move piece
+            return True #TODO: move piece
         else:
             return False
 
@@ -348,10 +351,10 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
             forward = -1
         if toy + forward == currenty:
             if tox == currentx:
-                pass # TODO: Move piece
+                return True
             elif to is not None:
                 if tox - 1 == currentx or tox + 1 == currentx:
-                    pass # TODO: Move piece
+                    return True
                 else:
                     return False
             else:
@@ -378,7 +381,7 @@ def move(piece: str, current: tuple, to: tuple): # Moves a piece from one square
         if tox + 1 == currentx and toy + 2 == currenty:
             move = True
         if move == True:
-            pass # TODO: Move piece
+            return True
         else:
             return False
     
@@ -422,6 +425,184 @@ def getPiece(x: int, y: int): # Use squares
             return (i[0], i[3]) # [0] is name and [3] is movement-style
     return None
 
+def nameToClass(name: str):
+    if name == "b_bishop1":
+        return b_bishop1
+    if name == "b_bishop2":
+        return b_bishop2
+    if name == "w_bishop1":
+        return w_bishop1
+    if name == "w_bishop2":
+        return w_bishop2
+
+    if name == "b_rook1":
+        return b_rook1
+    if name == "b_rook2":
+        return b_rook2
+    if name == "w_rook1":
+        return w_rook1
+    if name == "w_rook2":
+        return w_rook2
+
+    if name == "b_knight1":
+        return b_knight1
+    if name == "b_knight2":
+        return b_knight2
+    if name == "w_knight1":
+        return w_knight1
+    if name == "w_knight2":
+        return w_knight2
+
+    if name == "b_queen1":
+        return b_queen1
+    if name == "w_queen1":
+        return w_queen1
+
+    if name == "b_king1":
+        return b_king1
+    if name == "w_king1":
+        return w_king1
+
+    if name == "b_pawn1":
+        return b_pawn1
+    if name == "b_pawn2":
+        return b_pawn2
+    if name == "b_pawn3":
+        return b_pawn3
+    if name == "b_pawn4":
+        return b_pawn4
+    if name == "b_pawn5":
+        return b_pawn5
+    if name == "b_pawn6":
+        return b_pawn6
+    if name == "b_pawn7":
+        return b_pawn7
+    if name == "b_pawn8":
+        return b_pawn8
+    if name == "w_pawn1":
+        return w_pawn1
+    if name == "w_pawn2":
+        return w_pawn2
+    if name == "w_pawn3":
+        return w_pawn3
+    if name == "w_pawn4":
+        return w_pawn4
+    if name == "w_pawn5":
+        return w_pawn5
+    if name == "w_pawn6":
+        return w_pawn6
+    if name == "w_pawn7":
+        return w_pawn7
+    if name == "w_pawn8":
+        return w_pawn8
+
+def move(piece, x: int, y: int):
+    # Bishops
+    if piece == b_bishop1:
+        b_bishop1.xpos = x
+        b_bishop1.ypos = y
+    if piece == b_bishop2:
+        b_bishop2.xpos = x
+        b_bishop2.ypos = y
+    if piece == w_bishop1:
+        w_bishop1.xpos = x
+        w_bishop1.ypos = y
+    if piece == w_bishop2:
+        w_bishop2.xpos = x
+        w_bishop2.ypos = y
+
+    # Rooks
+    if piece == b_rook1:
+        b_rook1.xpos = x
+        b_rook1.ypos = y
+    if piece == b_rook2:
+        b_rook2.xpos = x
+        b_rook2.ypos = y
+    if piece == w_rook1:
+        w_rook1.xpos = x
+        w_rook1.ypos = y
+    if piece == w_rook2:
+        w_rook2.xpos = x
+        w_rook2.ypos = y
+
+    # Knights
+    if piece == b_knight1:
+        b_knight1.xpos = x
+        b_knight1.ypos = y
+    if piece == b_knight2:
+        b_knight2.xpos = x
+        b_knight2.ypos = y
+    if piece == w_knight1:
+        w_knight1.xpos = x
+        w_knight1.ypos = y
+    if piece == w_knight2:
+        w_knight2.xpos = x
+        w_knight2.ypos = y
+
+    if piece == b_queen1:
+        b_queen1.xpos = x
+        b_queen1.ypos = y
+    if piece == w_queen1:
+        w_queen1.xpos = x
+        w_queen1.ypos = y
+    
+    if piece == b_king1:
+        b_king1.xpos = x
+        b_king1.ypos = y
+    if piece == w_king1:
+        w_king1.xpos = x
+        w_king1.ypos = y
+
+    if piece == b_pawn1:
+        b_pawn1.xpos = x
+        b_pawn1.ypos = y
+    if piece == b_pawn2:
+        b_pawn2.xpos = x
+        b_pawn2.ypos = y
+    if piece == b_pawn3:
+        b_pawn3.xpos = x
+        b_pawn3.ypos = y
+    if piece == b_pawn4:
+        b_pawn4.xpos = x
+        b_pawn4.ypos = y
+    if piece == b_pawn5:
+        b_pawn5.xpos = x
+        b_pawn5.ypos = y
+    if piece == b_pawn6:
+        b_pawn6.xpos = x
+        b_pawn6.ypos = y
+    if piece == b_pawn7:
+        b_pawn7.xpos = x
+        b_pawn7.ypos = y
+    if piece == b_pawn8:
+        b_pawn8.xpos = x
+        b_pawn8.ypos = y
+    if piece == w_pawn1:
+        w_pawn1.xpos = x
+        w_pawn1.ypos = y
+    if piece == w_pawn2:
+        w_pawn2.xpos = x
+        w_pawn2.ypos = y
+    if piece == w_pawn3:
+        w_pawn3.xpos = x
+        w_pawn3.ypos = y
+    if piece == w_pawn4:
+        w_pawn4.xpos = x
+        w_pawn4.ypos = y
+    if piece == w_pawn5:
+        w_pawn5.xpos = x
+        w_pawn5.ypos = y
+    if piece == w_pawn6:
+        w_pawn6.xpos = x
+        w_pawn6.ypos = y
+    if piece == w_pawn7:
+        w_pawn7.xpos = x
+        w_pawn7.ypos = y
+    if piece == w_pawn8:
+        w_pawn8.xpos = x
+        w_pawn8.ypos = y
+
+    
 ######################## Draw screen one time 
 pygame.display.flip()
 ######################## Game loop
@@ -458,11 +639,11 @@ while (active):
             mouseX = convertValue("squares", mousepos[0])
             mouseY = convertValue("squares", mousepos[1])
             if piece is not None:
-                error = move(piece[0], (oldmouseX, oldmouseY), (mouseX, mouseY))
-                if error == False:
+                error = canMove(piece[0], (oldmouseX, oldmouseY), (mouseX, mouseY))
+                if error == False: 
                     print("Invalid move")
-                else: # TODO: Remove on non-debug
-                    print("VALID MOVE")
+                else: # Do the move
+                    move(nameToClass(piece[0]), mouseX, mouseY)
                 moveclick = False
         else:
             mouseX = convertValue("squares", mousepos[0])
