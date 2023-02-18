@@ -1,6 +1,13 @@
 import pygame
 import time
 
+#TODO: Need working on list
+# Dont let pieces jump over each other
+# Row 0 has some fancy shit going on, fix it
+#
+#TODO#######################
+
+
 ######################## Config
 X = 400
 Y = 400
@@ -32,7 +39,7 @@ w_bishop = pygame.image.load(f"images/w_bishop.png")
 w_rook = pygame.image.load(f"images/w_rook.png")
 w_queen = pygame.image.load(f"images/w_queen.png")
 w_king = pygame.image.load(f"images/w_king.png")
-# TODO: credit these guys https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard_transparent
+#Credit to these guys https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard_transparent
 
 board = pygame.image.load(f"images/chessboard.png")
 
@@ -412,9 +419,6 @@ def canMove(piece: str, current: tuple, to: tuple): # Checks if a piece can move
     if currentColor[0] == toColor[0]:
         return False
     # Checks for other pieces
-    to = getPiece(to[0], to[1])
-    if to is not None:
-        remove(nameToClass(to[0]))
 
     # Bishops
     if movementStyle == "bishop":
@@ -850,6 +854,9 @@ while (active):
                 if error == False: 
                     print("Invalid move")
                 else: # Do the move
+                    to = getPiece(mouseX, mouseY)
+                    if to is not None:
+                        remove(nameToClass(to[0]))
                     move(nameToClass(piece[0]), mouseX, mouseY)
                 moveclick = False
                 mouseX = 8
