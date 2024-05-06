@@ -1,3 +1,5 @@
+([Update from 2024] I just want to mention that I was trying to learn OOP and it is *not* a very good implementation of classes nor good code in general.)
+
 Shitty chess game that I'm making on my freetime, and yes I know the code is shit, I just don't care. It's chess, it doesnt need a 0.02 millisecond response time. It's mostly hacked together with ROMs and hardcoded pieces.
 
 Chess pieces from https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces/Standard_transparent with a CC license (https://creativecommons.org/licenses/by-sa/3.0/)
